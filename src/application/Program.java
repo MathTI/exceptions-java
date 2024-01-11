@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 import model.entities.Reservation;
 
-public class Main {
+public class Program {
 
 	public static void main(String[] args) throws ParseException {
 
@@ -35,19 +35,19 @@ public class Main {
 			System.out.print("Check-out date (dd/MM/yyyy): ");
 			checkOut = sdf.parse(sc.next());
 			
-			Date now = new Date();
-			if (checkIn.before(now) || checkOut.before(now)) {
+			String error = reservation.updateDates(checkIn, checkOut);
+			
 				System.out.print("Error in reservation: Reservation dates for update must be future");
-			}
-			else if (!checkOut.after(checkIn)) {
+			
+			if (error != null) {
 				System.out.println("Error in reservation: Check-out date must be after check-in date");
 			}
 			else {
-				reservation.updateDate(checkIn, checkOut);
+				reservation.updateDates(checkIn, checkOut);
 				System.out.println("Reservation: " + reservation);
-					
+			}		
 		}
-		
+		sc.close();
 	}
 
 }
